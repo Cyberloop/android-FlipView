@@ -20,4 +20,5 @@ android {
     }
 }
 
-apply from: '../maven_push.gradle'
+//Commend maven push as it's being used as library
+//apply from: '../maven_push.gradle'
