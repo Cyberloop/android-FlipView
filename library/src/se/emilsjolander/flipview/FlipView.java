@@ -1,6 +1,5 @@
 package se.emilsjolander.flipview;
 
-import se.emilsjolander.flipview.Recycler.Scrap;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.TimeInterpolator;
@@ -29,6 +28,8 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
 import android.widget.Scroller;
+
+import se.emilsjolander.flipview.Recycler.Scrap;
 
 public class FlipView extends FrameLayout {
 
@@ -177,8 +178,20 @@ public class FlipView extends FrameLayout {
 
 		init();
 	}
+    
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        destroy();
+    }
+    
+    public void destroy() {
+        endPeak();
+        endFlip();
+        endScroll();
+    }
 
-	private void init() {
+    private void init() {
 		final Context context = getContext();
 		final ViewConfiguration configuration = ViewConfiguration.get(context);
 
@@ -1006,6 +1019,9 @@ public class FlipView extends FrameLayout {
 	private boolean endPeak() {
 		final boolean wasPeaking = mPeakAnim != null;
 		if (mPeakAnim != null) {
+            mPeakAnim.setRepeatCount(0);
+            mPeakAnim.removeAllListeners();
+            mPeakAnim.setInterpolator(null);
 			mPeakAnim.cancel();
 			mPeakAnim = null;
 		}
