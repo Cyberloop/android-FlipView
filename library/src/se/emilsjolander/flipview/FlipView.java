@@ -189,6 +189,10 @@ public class FlipView extends FrameLayout {
         endPeak();
         endFlip();
         endScroll();
+        dataSetInvalidated();
+        mOnFlipListener = null;
+        mOnOverFlipListener = null;
+        
     }
 
     private void init() {
