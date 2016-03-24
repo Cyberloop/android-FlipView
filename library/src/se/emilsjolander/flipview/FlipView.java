@@ -367,7 +367,7 @@ public class FlipView extends FrameLayout {
 		final int currentPageIndex = (int) Math.round(mFlipDistance
 				/ FLIP_DISTANCE_PER_PAGE);
 
-		if (mCurrentPageIndex != currentPageIndex) {
+		if (mAdapter != null && mCurrentPageIndex != currentPageIndex) {
 			mCurrentPageIndex = currentPageIndex;
 			mCurrentPageId = mAdapter.getItemId(mCurrentPageIndex);
 
